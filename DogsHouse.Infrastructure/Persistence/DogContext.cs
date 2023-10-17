@@ -19,6 +19,11 @@ namespace DogsHouse.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
         }
 
+        public async Task SaveAsync()
+        {
+            await SaveChangesAsync();
+        }
+
         public DbSet<Dog> Dogs => Set<Dog>();
     }
 }

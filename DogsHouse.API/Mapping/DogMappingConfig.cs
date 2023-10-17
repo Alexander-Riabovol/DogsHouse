@@ -1,4 +1,5 @@
-﻿using DogsHouse.Contracts.Dogs;
+﻿using DogsHouse.Application.CQRS.Dogs.Queries;
+using DogsHouse.Contracts.Dogs;
 using DogsHouse.Domain.Entities;
 using Mapster;
 
@@ -8,14 +9,14 @@ namespace DogsHouse.API.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<Dog, GetDogResponse>()
-                  .Map(dest => dest.name, src => src.name)
-                  .Map(dest => dest.color, src => src.color)
-                  .Map(dest => dest.tail_length, src => src.tail_length)
-                  .Map(dest => dest.weight, src => src.weight);
-
             config.NewConfig<IEnumerable<Dog>, GetDogsResponse>()
                   .Map(dest => dest.Dogs, src => src);
+
+            config.NewConfig<IQueryCollection, GetDogsQueryParams>()
+                  .Map(dest => dest.Attribute, src => src["attribute"])
+                  .Map(dest => dest.Order, src => src["order"])
+                  .Map(dest => dest.PageNumber, src => src["pageNumber"])
+                  .Map(dest => dest.PageSize, src => src["pageSize"]);
         }
     }
 }

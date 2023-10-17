@@ -25,7 +25,9 @@ namespace DogsHouse.API.Controllers
         [Route("dogs")]
         public async Task<ActionResult<GetDogsResponse>> Get()
         {
-            var response = await _mediator.Send(new GetDogsQuery());
+            var queryParams = _mapper.Map<GetDogsQueryParams>(HttpContext.Request.Query);
+
+            var response = await _mediator.Send(new GetDogsQuery(queryParams));
             if(response.IsError)
             {
                 return StatusCode(response.StatusCode,

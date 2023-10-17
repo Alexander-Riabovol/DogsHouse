@@ -6,5 +6,6 @@ namespace DogsHouse.Application.Persistence
     public interface IDogContext
     {
         DbSet<Dog> Dogs { get; }
+        Task SaveAsync();
     }
 }
