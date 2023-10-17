@@ -1,6 +1,4 @@
 using DogsHouse.Application;
-using DogsHouse.Contracts;
-using DogsHouse.Domain;
 using DogsHouse.Infrastructure;
 using Mapster;
 using MapsterMapper;
@@ -11,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Adding services to the container.
 
 builder.Services.AddApplication()
-                .AddInfrastructure();
+                .AddInfrastructure(
+    builder.Configuration.GetConnectionString(/*AppData.InDocker ? "Docker" : */"Default"));
 
 builder.Services.AddControllers();
 
@@ -32,5 +31,7 @@ app.MapGet("/ping", () =>
 {
     return "Dogshouseservice.Version1.0.1";
 });
+
+app.ApplyPendingMigrations();
 
 app.Run();
