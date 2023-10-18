@@ -2,6 +2,7 @@ using DogsHouse.Application;
 using DogsHouse.Infrastructure;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,27 @@ builder.Services.AddApplication()
     builder.Configuration.GetConnectionString(/*AppData.InDocker ? "Docker" : */"Default"));
 
 builder.Services.AddControllers();
+
+// Add Rate Limiter
+builder.Services.AddRateLimiter(rateLimiterOptions =>
+{
+    // Too Many Requests
+    rateLimiterOptions.RejectionStatusCode = 429;
+
+    rateLimiterOptions.AddFixedWindowLimiter("fixed", options =>
+    {
+        options.QueueLimit = 0;
+        options.Window = TimeSpan.FromSeconds(1);
+        // You can configure the amount of allowed requests per second in appsettings.json
+        int perSecond;
+        if (builder.Configuration["AllowedRequestsPerSecond"] == null ||
+            !int.TryParse(builder.Configuration["AllowedRequestsPerSecond"], out perSecond))
+        {
+            perSecond = 10;
+        }
+        options.PermitLimit = perSecond;
+    });
+});
 
 // Add Mappings
 var config = TypeAdapterConfig.GlobalSettings;
@@ -31,6 +53,8 @@ app.MapGet("/ping", () =>
 {
     return "Dogshouseservice.Version1.0.1";
 });
+
+app.UseRateLimiter();
 
 app.ApplyPendingMigrations();
 

@@ -5,10 +5,12 @@ using DogsHouse.Domain.Entities;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace DogsHouse.API.Controllers
 {
     [ApiController]
+    [EnableRateLimiting("fixed")]
     public class DogsController : ControllerBase
     {
         private readonly IMapper _mapper;
