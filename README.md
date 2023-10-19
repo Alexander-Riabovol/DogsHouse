@@ -33,8 +33,8 @@ The endpoint that allows creating dogs: `http://localhost:5171/dog`
 Example:
 ```
 curl -X POST http://localhost:5171/dog -v
-	 -H "Content-Type: application/json"
-	 -d "{"name": "Doggy", "color": "red", "tail_length": 173, "weight": 33}"
+     -H "Content-Type: application/json"
+     -d "{"name": "Doggy", "color": "red", "tail_length": 173, "weight": 33}"
 ```
 ###### Rate Limiter
 There is a setting that says how many *requests per second* the service can handle. In case there are more incoming requests, the application will return HTTP status code "**429**TooManyRequests".
@@ -42,5 +42,10 @@ By default, you can only send 1 request per 1 second, but you can change this in
 
 ##### Used frameworks:
  ![MediatR](https://img.shields.io/badge/MediatR-2596be) ![Mapster](https://img.shields.io/badge/Mapster-ffbc34) ![Fluent Validation](https://img.shields.io/badge/Fluent_Validation-ff0404) ![Fluent Assertions](https://img.shields.io/badge/Fluent_Assertions-f01c24) ![Moq](https://img.shields.io/badge/Moq-f8b804) ![Entity Framework Core](https://img.shields.io/badge/Entity_Framework_Core-1874a4)
+##### Used patterns:
+- ﻿Clean Architecture, DDD
+- CQRS
+- Repository
+- AAA
 
 *Thank you for your time :)*
