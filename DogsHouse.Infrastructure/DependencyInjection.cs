@@ -1,4 +1,5 @@
 ﻿using DogsHouse.Application.Persistence;
+using DogsHouse.Domain.Entities;
 using DogsHouse.Infrastructure.Persistence;
 using DogsHouse.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +40,13 @@ namespace DogsHouse.Infrastructure
                 var context = services.GetRequiredService<DogContext>();
                 if (context.Database.GetPendingMigrations().Any())
                 {
+                    // Apply migrations
                     context.Database.Migrate();
+
+                    // Prepopulate DB according to the task requirements
+                    context.Add(new Dog() { name = "Neo", color = "red&amber", tail_length = 22, weight = 32 });
+                    context.Add(new Dog() { name = "Jessy", color = "black&white", tail_length = 7, weight = 14 });
+                    context.SaveChanges();
                 }
             }
         }

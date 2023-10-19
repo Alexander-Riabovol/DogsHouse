@@ -15,7 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogsHouse.Contracts", "Dogs
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1F0220E5-65D2-4599-90E9-9190F5EF5C17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogsHouse.Application.UnitTests", "tests\DogsHouse.Application.UnitTests\DogsHouse.Application.UnitTests.csproj", "{FD801D33-E937-491D-88A1-7834816BEF30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogsHouse.Application.UnitTests", "tests\DogsHouse.Application.UnitTests\DogsHouse.Application.UnitTests.csproj", "{FD801D33-E937-491D-88A1-7834816BEF30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3C0322D-FBC2-4B8E-BC29-2847018616CA}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+    api:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - "5171:80"
+        depends_on:
+            db:
+                condition: service_healthy
+
+    db:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        ports:
+          - "1433:1433"
+
+        environment:
+            SA_PASSWORD: "D0ckerDBPass"
+            ACCEPT_EULA: "Y"
+        # health-check will always be succesful, we need it to make api container wait before db has fully started.
+        healthcheck:
+            test: ["CMD-SHELL", "echo 'Container is healthy'"]
+            interval: 10s
+            timeout: 5s
+            retries: 10

@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication()
                 .AddInfrastructure(
-    builder.Configuration.GetConnectionString(/*AppData.InDocker ? "Docker" : */"Default"));
+    builder.Configuration.GetConnectionString(AppData.InDocker ? "Docker" : "Default"));
 
 builder.Services.AddControllers();
 
