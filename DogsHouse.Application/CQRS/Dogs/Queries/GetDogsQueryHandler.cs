@@ -5,6 +5,9 @@ using MediatR;
 
 namespace DogsHouse.Application.CQRS.Dogs.Queries
 {
+    /// <summary>
+    /// Used by MediatR to handle <see cref="GetDogsQuery"/> instances.
+    /// </summary>
     public class GetDogsQueryHandler
         : IRequestHandler<GetDogsQuery, ServiceResponse<IEnumerable<Dog>>>
     {

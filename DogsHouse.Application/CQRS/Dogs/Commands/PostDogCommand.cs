@@ -4,5 +4,9 @@ using MediatR;
 
 namespace DogsHouse.Application.CQRS.Dogs.Commands
 {
-    public record PostDogCommand(Dog Dog) : IRequest<ServiceResponse>;
+    /// <summary>
+    /// MediatR command responsible for creating a new <see cref="Dog"/>.
+    /// </summary>
+    /// <param name="NewDog">The dog that will be created.</param>
+    public record PostDogCommand(Dog NewDog) : IRequest<ServiceResponse>;
 }

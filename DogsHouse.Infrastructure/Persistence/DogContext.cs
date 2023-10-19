@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace DogsHouse.Infrastructure.Persistence
 {
+    /// <summary>
+    /// Ef Core custom database context.
+    /// </summary>
     public class DogContext : DbContext
     {
         // .ctor that meets the requirements of the Dependency Injection
@@ -18,6 +21,9 @@ namespace DogsHouse.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
         }
 
+        /// <summary>
+        /// Gives access to the Dog table.
+        /// </summary>
         public DbSet<Dog> Dogs => Set<Dog>();
     }
 }

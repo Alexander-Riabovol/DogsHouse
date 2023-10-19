@@ -23,7 +23,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
         {
             // Arrange
             var command = DogUtils.CreatePostDogCommand();
-            _mockDogRepo.Setup(x => x.GetByNameAsync(command.Dog.name))
+            _mockDogRepo.Setup(x => x.GetByNameAsync(command.NewDog.name))
                         .ReturnsAsync(default(Dog));
 
             // Act
@@ -33,7 +33,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
             // Verifing that there is no error
             result.IsError.Should().BeFalse();
             // Verifing that the dog was added to the db
-            _mockDogRepo.Verify(r => r.CreateAsync(command.Dog), Times.Once);
+            _mockDogRepo.Verify(r => r.CreateAsync(command.NewDog), Times.Once);
         }
 
         [Fact]
@@ -41,8 +41,8 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
         {
             // Arrange
             var command = DogUtils.CreatePostDogCommand();
-            _mockDogRepo.Setup(x => x.GetByNameAsync(command.Dog.name))
-                        .ReturnsAsync(DogUtils.CreateNamesake(command.Dog.name));
+            _mockDogRepo.Setup(x => x.GetByNameAsync(command.NewDog.name))
+                        .ReturnsAsync(DogUtils.CreateNamesake(command.NewDog.name));
 
             // Act
             var result = await _sut.Handle(command, default);
@@ -52,7 +52,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
             result.IsError.Should().BeTrue();
             result.StatusCode.Should().Be(400);
             // Verifing that the dog wasn't added to the db
-            _mockDogRepo.Verify(r => r.CreateAsync(command.Dog), Times.Never);
+            _mockDogRepo.Verify(r => r.CreateAsync(command.NewDog), Times.Never);
         }
     }
 }

@@ -8,6 +8,9 @@ namespace DogsHouse.Application
 {
     public static class DependencyInjection
     {
+        /// <summary>
+        /// Adds dependencies of services declared in the Application layer.
+        /// </summary>
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             // Add Validators

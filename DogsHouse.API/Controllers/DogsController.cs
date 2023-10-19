@@ -22,7 +22,9 @@ namespace DogsHouse.API.Controllers
             _mediator = mediator;
         }
 
-        //curl -X GET http://localhost:5171/dogs -v
+        // curl -X GET http://localhost:5171/dogs -v
+        // Use "pageNumber" & "pageSize" query params for pagination
+        // Use "attribute" & "order" query params for sorting
         [HttpGet]
         [Route("dogs")]
         public async Task<ActionResult<GetDogsResponse>> Get()
@@ -40,9 +42,11 @@ namespace DogsHouse.API.Controllers
             return Ok(dogs);
         }
 
-        //curl -X POST http://localhost:5171/dog -v
-        //-H "Content-Type: application/json"
-        //-d "{"name": "string", "color": "string", "tail_length": 0, "weight": 0}"
+        // curl -X POST http://localhost:5171/dog -v
+        // -H "Content-Type: application/json"
+        // -d "{"name": "string", "color": "string", "tail_length": 1, "weight": 1}"
+        //
+        // "Content-Type" header in the request is necessary, without it the endpoint won't work.
         [HttpPost]
         [Route("dog")]
         public async Task<IActionResult> Post([FromBody] PostDogRequest request)

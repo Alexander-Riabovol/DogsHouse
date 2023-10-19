@@ -5,6 +5,9 @@ using Mapster;
 
 namespace DogsHouse.API.Mapping
 {
+    /// <summary>
+    /// Local mapping configuration class.
+    /// </summary>
     internal class DogMappingConfig : IRegister
     {
         public void Register(TypeAdapterConfig config)

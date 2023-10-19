@@ -3,10 +3,15 @@ using FluentValidation.Results;
 
 namespace DogsHouse.Application.CQRS.Dogs.Queries
 {
+    /// <summary>
+    /// Used by FluentValidation to validate <see cref="GetDogsQuery"/> instances.
+    /// </summary>
     public class GetDogsQueryValidator : AbstractValidator<GetDogsQuery>
     {
         public GetDogsQueryValidator() 
         {
+            // Add a validation error if there is a pageNumber parameter 
+            // but no pageSize parameter in the URL query and vice versa.
             RuleFor(x => x.Params)
                 .Must(x => (x.PageNumber == string.Empty && x.PageSize == string.Empty) ||
                            (x.PageNumber != string.Empty && x.PageSize != string.Empty))
@@ -18,6 +23,7 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
                     if(pageNumber != string.Empty)
                     {
                         int parsedPageNumber;
+                        // Add a validation error if wrong format or negative
                         if (!int.TryParse(pageNumber, out parsedPageNumber))
                         {
                             context.AddFailure(new ValidationFailure(
@@ -37,6 +43,7 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
                     if(pageSize != string.Empty)
                     {
                         int parsedPageSize;
+                        // Add a validation error if wrong format or less than 1
                         if (!int.TryParse(pageSize, out parsedPageSize))
                         {
                             context.AddFailure(new ValidationFailure(
@@ -55,6 +62,8 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
                 {
                     if(order != string.Empty)
                     {
+                        // Add a validation error if the "order" URL query parameter
+                        // is not a substring of the "ascending" or "descending" words.
                         if (!"ascending".StartsWith(order.ToLower()) &&
                             !"descending".StartsWith(order.ToLower()))
                         {
@@ -67,6 +76,8 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
             RuleFor(x => x.Params.Attribute)
                 .Custom((attr, context) =>
                 {
+                    // Add a validation error id the "attribute" URL query parameter
+                    // does not correspond to one of the Dog entity properties.
                     if(attr != string.Empty) 
                     { 
                         if(attr != "name" &&

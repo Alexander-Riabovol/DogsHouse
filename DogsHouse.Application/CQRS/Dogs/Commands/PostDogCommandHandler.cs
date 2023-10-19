@@ -4,6 +4,9 @@ using MediatR;
 
 namespace DogsHouse.Application.CQRS.Dogs.Commands
 {
+    /// <summary>
+    /// Used by MediatR to handle <see cref="PostDogCommand"/> instances.
+    /// </summary>
     public class PostDogCommandHandler
         : IRequestHandler<PostDogCommand, ServiceResponse>
     {
@@ -16,14 +19,16 @@ namespace DogsHouse.Application.CQRS.Dogs.Commands
         public async Task<ServiceResponse> Handle(PostDogCommand request, 
                                                   CancellationToken cancellationToken)
         {
-            var namesake = await _dogRepository.GetByNameAsync(request.Dog.name);
+            // Check if there is a dog with the newdog's name in the db already.
+            var namesake = await _dogRepository.GetByNameAsync(request.NewDog.name);
             if(namesake is not null)
             {
+                // Return BadRequest if so
                 return new ServiceResponse(
-                    400, $"{request.Dog.name} already exists in the database. Choose a different name.");
+                    400, $"{request.NewDog.name} already exists in the database. Choose a different name.");
             }
 
-            await _dogRepository.CreateAsync(request.Dog);
+            await _dogRepository.CreateAsync(request.NewDog);
 
             return ServiceResponse.OK;
         }

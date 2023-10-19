@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DogsHouse.Infrastructure.Persistence.Configurations
 {
+    /// <summary>
+    /// Configures the <see cref="Dog"/> database entity for code-first migrations.
+    /// </summary>
     internal class DogConfigurations : IEntityTypeConfiguration<Dog>
     {
         public void Configure(EntityTypeBuilder<Dog> builder)

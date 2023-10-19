@@ -1,5 +1,8 @@
 ﻿namespace DogsHouse.Application
 {
+    /// <summary>
+    /// Represents the application runtime data.
+    /// </summary>
     public static class AppData
     {
         /// <summary>

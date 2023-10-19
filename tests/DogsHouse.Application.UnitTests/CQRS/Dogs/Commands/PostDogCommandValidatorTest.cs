@@ -37,7 +37,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.FirstOrDefault(x => x.PropertyName == "Dog.name").Should().NotBeNull();
+            result.Errors.FirstOrDefault(x => x.PropertyName == "NewDog.name").Should().NotBeNull();
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.FirstOrDefault(x => x.PropertyName == "Dog.name").Should().NotBeNull();
+            result.Errors.FirstOrDefault(x => x.PropertyName == "NewDog.name").Should().NotBeNull();
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.FirstOrDefault(x => x.PropertyName == "Dog.color").Should().NotBeNull();
+            result.Errors.FirstOrDefault(x => x.PropertyName == "NewDog.color").Should().NotBeNull();
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.FirstOrDefault(x => x.PropertyName == "Dog.color").Should().NotBeNull();
+            result.Errors.FirstOrDefault(x => x.PropertyName == "NewDog.color").Should().NotBeNull();
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.FirstOrDefault(x => x.PropertyName == "Dog.tail_length").Should().NotBeNull();
+            result.Errors.FirstOrDefault(x => x.PropertyName == "NewDog.tail_length").Should().NotBeNull();
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace DogsHouse.Application.UnitTests.CQRS.Dogs.Commands
 
             //Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.FirstOrDefault(x => x.PropertyName == "Dog.weight").Should().NotBeNull();
+            result.Errors.FirstOrDefault(x => x.PropertyName == "NewDog.weight").Should().NotBeNull();
         }
     }
 }

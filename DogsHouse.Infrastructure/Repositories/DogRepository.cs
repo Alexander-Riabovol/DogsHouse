@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DogsHouse.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Implementation of <see cref="IDogRepository"/> that uses EF Core.
+    /// </summary>
     public class DogRepository : IDogRepository
     {
         private readonly DogContext _context;

@@ -9,8 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Adding services to the container.
 
+// Add services from other application layers.
 builder.Services.AddApplication()
                 .AddInfrastructure(
+    // Use the appropriate ConnectionString for the current running environment.
     builder.Configuration.GetConnectionString(AppData.InDocker ? "Docker" : "Default"));
 
 builder.Services.AddControllers();

@@ -11,6 +11,9 @@ namespace DogsHouse.Infrastructure
 {
     public static class DependencyInjection
     {
+        /// <summary>
+        /// Adds dependencies of services declared in the Infrastructure layer.
+        /// </summary>
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
                                                            string? connectionString)
         {
@@ -31,12 +34,15 @@ namespace DogsHouse.Infrastructure
             return services;
         }
 
+        /// <summary>
+        /// Applies migrations if the database is not up to date.
+        /// </summary>
         public static void ApplyPendingMigrations(this IHost app)
         {
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
+                // Extract DogContext from the service pool of DI.
                 var context = services.GetRequiredService<DogContext>();
                 if (context.Database.GetPendingMigrations().Any())
                 {

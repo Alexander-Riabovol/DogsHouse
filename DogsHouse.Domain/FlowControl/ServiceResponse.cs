@@ -1,5 +1,10 @@
 ﻿namespace DogsHouse.Domain.FlowControl
 {
+    /// <summary>
+    /// Class used for flow control of the application.
+    /// Contains information about Errors and HTTP Status Code
+    /// that correspond to the type of the error.
+    /// </summary>
     public record ServiceResponse
     {
         public bool IsError { get; init; } = true;
@@ -18,6 +23,10 @@
             ErrorMessage = ""
         };
     }
+    /// <summary>
+    /// Generic version of class used for flow control of the application.
+    /// If there is no error contains a response of type <see cref="T"/>.
+    /// </summary>
     public record ServiceResponse<T> : ServiceResponse
     {
         public T? Content { get; init; }
