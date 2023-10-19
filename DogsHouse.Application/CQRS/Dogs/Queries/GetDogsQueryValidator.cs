@@ -1,8 +1,5 @@
-﻿using DogsHouse.Domain.Entities;
-using DogsHouse.Domain.FlowControl;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
-using MediatR;
 
 namespace DogsHouse.Application.CQRS.Dogs.Queries
 {
@@ -45,10 +42,10 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
                             context.AddFailure(new ValidationFailure(
                                 "pageSize", "This parameter must be integer."));
                         }
-                        else if (parsedPageSize < 0)
+                        else if (parsedPageSize < 1)
                         {
                             context.AddFailure(new ValidationFailure(
-                                "pageSize", "This parameter must not be negative."));
+                                "pageSize", "This parameter must be positive."));
                         }
                     }
                 });

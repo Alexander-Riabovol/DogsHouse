@@ -2,7 +2,6 @@
 using DogsHouse.Domain.Entities;
 using DogsHouse.Domain.FlowControl;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace DogsHouse.Application.CQRS.Dogs.Queries
 {
@@ -32,7 +31,7 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
             {
                 bool ascending = "ascending".StartsWith(request.Params.Order.ToLower());
 
-                switch(request.Params.Attribute)
+                switch(request.Params.Attribute.ToLower())
                 {
                     case "color":
                         dogs = ascending ? dogs.OrderBy(d => d.color).ToList()
@@ -61,6 +60,12 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
                 int pageSize = int.Parse(request.Params.PageSize);
 
                 dogs = dogs.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+
+                if(!dogs.Any())
+                {
+                    return new ServiceResponse<IEnumerable<Dog>>(
+                    400, $"There is not enough entries in the database to display page {pageNumber} with size of {pageSize}.");
+                }
             }
 
             return ServiceResponse<IEnumerable<Dog>>.OK(dogs);
