@@ -7,24 +7,23 @@ namespace DogsHouse.Application.CQRS.Dogs.Commands
     public class PostDogCommandHandler
         : IRequestHandler<PostDogCommand, ServiceResponse>
     {
-        private readonly IDogContext _context;
-        public PostDogCommandHandler(IDogContext context)
+        private readonly IDogRepository _dogRepository;
+        public PostDogCommandHandler(IDogRepository dogRepository)
         {
-            _context = context;
+            _dogRepository = dogRepository;
         }
 
         public async Task<ServiceResponse> Handle(PostDogCommand request, 
                                                   CancellationToken cancellationToken)
         {
-            var namesake = await _context.Dogs.FindAsync(request.Dog.name);
+            var namesake = await _dogRepository.GetByNameAsync(request.Dog.name);
             if(namesake is not null)
             {
                 return new ServiceResponse(
                     400, $"{request.Dog.name} already exists in the database. Choose a different name.");
             }
 
-            await _context.Dogs.AddAsync(request.Dog);
-            await _context.SaveAsync();
+            await _dogRepository.CreateAsync(request.Dog);
 
             return ServiceResponse.OK;
         }

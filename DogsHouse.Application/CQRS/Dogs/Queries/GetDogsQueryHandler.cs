@@ -9,16 +9,16 @@ namespace DogsHouse.Application.CQRS.Dogs.Queries
     public class GetDogsQueryHandler
         : IRequestHandler<GetDogsQuery, ServiceResponse<IEnumerable<Dog>>>
     {
-        private readonly IDogContext _context;
-        public GetDogsQueryHandler(IDogContext context)
+        private readonly IDogRepository _dogRepository;
+        public GetDogsQueryHandler(IDogRepository dogRepository)
         {
-            _context = context;
+            _dogRepository = dogRepository;
         }
 
         public async Task<ServiceResponse<IEnumerable<Dog>>> Handle(GetDogsQuery request, 
                                                                     CancellationToken cancellationToken)
         {
-            var dogs = await _context.Dogs.ToListAsync(cancellationToken);
+            var dogs = await _dogRepository.GetAllAsync();
 
             if(!dogs.Any())
             {

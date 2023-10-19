@@ -1,5 +1,6 @@
 ﻿using DogsHouse.Application.Persistence;
 using DogsHouse.Infrastructure.Persistence;
+using DogsHouse.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,8 +13,11 @@ namespace DogsHouse.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
                                                            string? connectionString)
         {
+            // Add Repositories
+            services.AddScoped<IDogRepository, DogRepository>();
+
             // Add DB context
-            services.AddDbContext<IDogContext, DogContext>(options =>
+            services.AddDbContext<DogContext>(options =>
             {
                 options.UseSqlServer(connectionString,
                 // Set Data project as source for migrations
